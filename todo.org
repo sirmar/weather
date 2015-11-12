@@ -1,0 +1,7 @@
+- i städer
+- today
+- tomorrow
+- yesterday
+- date
+- wind
+- rain

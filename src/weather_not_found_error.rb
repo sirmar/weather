@@ -1,0 +1,2 @@
+class WeatherNotFoundError < StandardError
+end

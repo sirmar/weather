@@ -26,11 +26,7 @@ class Engine
 
   def show
     if city_found?
-      if @data[:details].nil?
-        puts @result.short
-      else
-        puts @result.details
-      end
+      puts @result.send @data[:details]
     else
       puts "City not found."
     end

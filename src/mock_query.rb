@@ -220,8 +220,8 @@ class MockForecastQuery < ForecastQuery
           "weather" => [
             {
               "id" => 802,
-              "main" => "Clouds",
-              "description" => "scattered clouds",
+              "main" => "Snow",
+              "description" => "snow",
               "icon" => "03n"
             }
           ],
@@ -232,7 +232,9 @@ class MockForecastQuery < ForecastQuery
             "speed" => 4.09,
             "deg" => 228.001
           },
-          "rain" => {},
+          "snow" => {
+            "3h" => 2.17
+          },
           "sys" => {
             "pod" => "n"
           },

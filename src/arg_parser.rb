@@ -7,14 +7,14 @@ class ArgParser
   end
 
   def run
-    /^(?'details'details )?((?'time_word'now|later|today|tomorrow) )?(at (?'hour'\d+) )?in (?'city'.+)$/ =~ @args
+    /^((?'details'details) )?((?'time_word'now|later|today|tomorrow) )?(at (?'hour'\d+) )?in (?'city'.+)$/ =~ @args
 
     if city.nil?
       puts "Usage: [details] [time] in <city>"
     else
       @engine.data=({
-        details: details,
-        time_word: time_word,
+        details: details || "short",
+        time_word: time_word || "now",
         hour: hour,
         city: city
         })

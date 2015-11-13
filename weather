@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+# coding: utf-8
+
+require_relative 'src/factory.rb'
+
+begin
+  Factory.new.create.run
+rescue WeatherError => error
+  puts error
+end

@@ -3,7 +3,7 @@ Given(/^input is "([^"]*)"$/) do |arguments|
 end
 
 When(/^running weather$/) do
-  @output = `./weather.rb #{@args}`
+  @output = `./weather #{@args}`
   raise('Weather failed!') unless $?.success?
 end
 

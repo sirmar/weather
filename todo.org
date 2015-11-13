@@ -1,7 +1,3 @@
-- i städer
-- today
-- tomorrow
-- yesterday
-- date
-- wind
+- Mock requests and injected time.
 - rain
+- snow

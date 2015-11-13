@@ -46,5 +46,4 @@ class ForecastQuery < Query
     hour = @time.default_hour(data[:time_word], data[:hour])
     @time.send(data[:time_word]) + hour
   end
-
 end

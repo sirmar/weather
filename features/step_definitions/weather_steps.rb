@@ -3,6 +3,7 @@ Given(/^input is "([^"]*)"$/) do |arguments|
 end
 
 When(/^running weather$/) do
+  ENV['MOCK_WEATHER_DATA'] = "true"
   @output = `./weather #{@args}`
   raise('Weather failed!') unless $?.success?
 end

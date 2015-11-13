@@ -20,7 +20,6 @@ class Query
   def run(city)
     HTTParty.get(uri, :query => @params.merge({q: city}))
   end
-
 end
 
 class WeatherQuery < Query

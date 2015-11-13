@@ -2,7 +2,8 @@ require 'HTTParty'
 require_relative 'query_result'
 
 class Query
-  def initialize(factory)
+  def initialize(factory, time)
+    @time = time
     @factory = factory
     @base_uri = "http://api.openweathermap.org/data/2.5"
     @params = {
@@ -17,8 +18,8 @@ class Query
     raise NotImplementedError
   end
 
-  def run(city)
-    HTTParty.get(uri, :query => @params.merge({q: city}))
+  def run(data)
+    HTTParty.get(uri, :query => @params.merge({q: data[:city]}))
   end
 end
 
@@ -27,8 +28,8 @@ class WeatherQuery < Query
     @base_uri + "/weather"
   end
 
-  def run(city)
-    @factory.weather_query_result(super(city))
+  def run(data)
+    @factory.weather_query_result(super)
   end
 end
 
@@ -37,7 +38,13 @@ class ForecastQuery < Query
     @base_uri + "/forecast"
   end
 
-  def run(city, timestamp)
-    @factory.forecast_query_result(super(city), timestamp)
+  def run(data)
+    @factory.forecast_query_result(super, timestamp(data))
   end
+
+  def timestamp(data)
+    hour = @time.default_hour(data[:time_word], data[:hour])
+    @time.send(data[:time_word]) + hour
+  end
+
 end

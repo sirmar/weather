@@ -1,11 +1,7 @@
 require_relative 'query'
 
 class MockWeatherQuery < WeatherQuery
-  def initialize(factory)
-    @factory = factory
-  end
-
-  def run(city)
+  def run(data)
     @factory.weather_query_result(
       {
         "coord" => {
@@ -52,7 +48,7 @@ class MockWeatherQuery < WeatherQuery
 end
 
 class MockForecastQuery < ForecastQuery
-  def run(city, timestamp)
+  def run(data)
     result = {
       "city" => {
         "id" => 2664454,
@@ -1371,6 +1367,6 @@ class MockForecastQuery < ForecastQuery
         }
       ]
     }
-    @factory.forecast_query_result(result, timestamp)
+    @factory.forecast_query_result(result, timestamp(data))
   end
 end

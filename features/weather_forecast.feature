@@ -5,15 +5,19 @@ Feature: Get weather forecasts
   Scenario: 'later' means in three hours
     Given input is "later in Vasteras"
     When running weather
-    And an output line matches "Forecasting broken clouds in Vasteras at 10 am November 13."
+    Then output should contain "Forecasting broken clouds in Vasteras at 10 am November 13."
 
-  Scenario: 'tomorrow' means 12 pm tomorrow
+  Scenario: 'tomorrow' means 13 pm tomorrow
     Given input is "tomorrow in Vasteras"
     When running weather
-    And an output line matches "Forecasting scattered clouds in Vasteras at 12 pm November 14."
+    Then output should contain "Forecasting sky is clear in Vasteras at 1 pm November 14."
 
-  Scenario: Show details for forecasts
-    Given input is "details tomorrow in Vasteras"
+  Scenario: 'tommorow at 5 pm' give you the nearest previous 3h time interval tomorrow
+    Given input is "details tomorrow at 17 in Vasteras"
     When running weather
-    And an output line matches "  Temperature: 3.78 C"
-    And an output line matches "  Wind: 2.01 m/s"
+    Then output should contain "Forecasting scattered clouds in Vasteras at 4 pm November 14."
+
+  Scenario: 'today at 5 pm' give you the nearest previous 3h time interval today
+    Given input is "details today at 17 in Vasteras"
+    When running weather
+    Then output should contain "Forecasting light rain in Vasteras at 4 pm November 13."

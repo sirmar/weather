@@ -12,6 +12,6 @@ When(/^running weather$/) do
   raise('Weather failed!') unless $?.success?
 end
 
-Then(/^an output line matches "([^"]*)"$/) do |regex_as_string|
-  expect(@output).to match(/^#{regex_as_string}$/)
+Then(/^output should contain "([^"]*)"$/) do |string|
+  expect(@output).to include(string)
 end

@@ -22,6 +22,10 @@ class QueryResult
     @result["name"]
   end
 
+  def time
+    @time.human(@result["dt"])
+  end
+
   def details
     """#{short}
   Temperature: #{temperature} C
@@ -37,15 +41,14 @@ end
 
 class ForecastQueryResult < QueryResult
   def initialize(time, result, timestamp)
-    @timestamp = timestamp
-    chosen_result = result["list"].find {
-      |forecast| @timestamp.between?(forecast["dt"], forecast["dt"] + 3*60*60)
+    chosen_result = result["list"].find { |forecast|
+      timestamp < forecast["dt"] + 3*60*60
     }
     chosen_result["name"] = result["city"]["name"]
     super(time, chosen_result)
   end
 
   def short
-    "Forecasting #{description} in #{city} at #{@time.human(@timestamp)}."
+    "Forecasting #{description} in #{city} at #{time}."
   end
 end

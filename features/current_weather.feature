@@ -1,4 +1,6 @@
 Feature: Get current weather data
+  Background:
+    Given time is Nov 13 at around 7.30 am
 
   Scenario: Default to current weather and short description
     Given input is "in Vasteras"

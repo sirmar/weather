@@ -1,7 +1,8 @@
 require_relative 'weather_error'
 
 class QueryResult
-  def initialize(result)
+  def initialize(time, result)
+    @time = time
     @result = result
   end
 
@@ -35,18 +36,16 @@ class WeatherQueryResult < QueryResult
 end
 
 class ForecastQueryResult < QueryResult
-  def initialize(result, timestamp)
+  def initialize(time, result, timestamp)
     @timestamp = timestamp
     chosen_result = result["list"].find {
       |forecast| @timestamp.between?(forecast["dt"], forecast["dt"] + 3*60*60)
     }
     chosen_result["name"] = result["city"]["name"]
-    super(chosen_result)
+    super(time, chosen_result)
   end
 
   def short
-    time = Time.at(@timestamp).strftime("%l %P %B %d")
-    "Forecasting #{description} in #{city} at #{time}."
+    "Forecasting #{description} in #{city} at #{@time.human(@timestamp)}."
   end
-
 end

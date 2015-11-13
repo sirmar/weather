@@ -1,10 +1,23 @@
 require_relative 'arg_parser'
 require_relative 'mock_query'
 require_relative 'query'
+require_relative 'time'
 
 class Factory
+  def initialize
+    @time = time
+  end
+
   def create
-    ArgParser.new(self, ARGV)
+    ArgParser.new(self, @time, ARGV)
+  end
+
+  def time
+    if ENV.has_key?('MOCK_WEATHER_DATA')
+      MockTime.new ENV['MOCK_WEATHER_DATA'].to_i
+    else
+      TimeWrapper.new
+    end
   end
 
   def forecast_query
@@ -24,11 +37,11 @@ class Factory
   end
 
   def forecast_query_result(result, timestamp)
-    ForecastQueryResult.new(result, timestamp)
+    ForecastQueryResult.new(time, result, timestamp)
   end
 
   def weather_query_result(result)
-      WeatherQueryResult.new(result)
+      WeatherQueryResult.new(time, result)
   end
 
 end
